@@ -1,1 +1,1 @@
-grep -i -o -f <(cut -d' ' -f1 b.txt | sed 's/\.txt$//') a.txt | awk 'NR==FNR{a[$2]=$1;next} {sub(/\.txt$/, "", $2); print $0, (a[$1] ? a[$1] : 0)}' - b.txt > merge.txt
+awk 'NR==FNR{a[$2]=$1;next} {sub(/\.txt$/, "", $2); print $0, ($2 in a ? a[$2] : 0)}' b.txt a.txt > merge.txt
